@@ -1,0 +1,155 @@
+You are building a production-ready web app using the provided files:
+
+* SAACH Proforma Invoice PDF (reference for correctness)
+* SAACH Excel/CSV structure (data reference)
+* SAACH branded HTML invoice (UI base)
+
+Your goal is to convert the HTML invoice into a fully functional invoice generator web app.
+
+---
+
+### CORE FUNCTIONALITY
+
+The app must allow a user to:
+
+1. Fill in invoice details (client name, invoice number, date, order number)
+2. Fill in product rows (product name, composition, form, packing, qty, rate, artwork)
+3. Automatically calculate all financial values
+4. Download:
+
+   * A properly formatted PDF invoice
+   * A CSV file of the invoice data
+
+---
+
+### CRITICAL: CALCULATION LOGIC (MUST BE EXACT)
+
+Follow this EXACT logic from the original invoice:
+
+1. Product Amount per row:
+   amount = qty × rate
+
+2. Product Subtotal:
+   sum of all product amounts
+
+3. Fixed Charges:
+   cylinderCharges = 1500
+   inventoryCharges = 3000
+
+4. GST:
+   gstProducts = 5% of productSubtotal
+   gstInventory = 18% of inventoryCharges ONLY
+
+   IMPORTANT:
+
+   * Do NOT apply 18% GST to products
+   * Do NOT apply GST to cylinder charges
+
+5. Grand Total:
+   grandTotal = productSubtotal + cylinderCharges + inventoryCharges + gstProducts + gstInventory
+
+6. Advance:
+   advance = 30% of grandTotal
+
+All values must update in real-time when inputs change.
+
+---
+
+### UI REQUIREMENTS
+
+Use the provided HTML file as the base UI.
+
+Enhance it by:
+
+* Making all inputs functional
+* Adding dynamic product rows (user can add/remove rows)
+* Auto-calculating row amount fields
+* Updating totals live
+
+DO NOT break the existing design or styling.
+
+---
+
+### PDF GENERATION
+
+Implement PDF download using one of the following:
+
+* html2pdf.js (preferred)
+* or window.print() fallback
+
+Requirements:
+
+* PDF must match the visual invoice layout
+* File name format:
+  SAACH_Invoice_[ClientName]_[Date].pdf
+
+---
+
+### CSV GENERATION
+
+Generate a CSV file containing:
+
+Columns:
+
+* Product Name
+* Composition
+* Form
+* Packing
+* Qty
+* Rate
+* Amount
+
+Also include:
+
+* Subtotal
+* GST (products)
+* GST (inventory)
+* Grand Total
+* Advance
+
+File name format:
+SAACH_Invoice_[ClientName]_[Date].csv
+
+---
+
+### CODE STRUCTURE
+
+* Use clean vanilla JavaScript (no heavy frameworks unless necessary)
+* Separate logic clearly:
+
+  * data handling
+  * calculations
+  * DOM updates
+  * file generation
+
+---
+
+### UX IMPROVEMENTS
+
+* Add buttons:
+
+  * "Add Product"
+  * "Download PDF"
+  * "Download CSV"
+* Show all totals updating live
+* Ensure no NaN or broken states
+
+---
+
+### FINAL OUTPUT
+
+Return:
+
+* Fully working HTML file (with embedded or linked JS)
+* All logic implemented
+* Ready to deploy on Netlify/Vercel
+
+---
+
+### IMPORTANT
+
+This is NOT a static template.
+
+This must behave like a real invoice generator tool with correct financial logic and zero calculation errors.
+
+Prioritize accuracy over shortcuts.

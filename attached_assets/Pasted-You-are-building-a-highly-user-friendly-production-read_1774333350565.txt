@@ -1,0 +1,236 @@
+You are building a highly user-friendly, production-ready invoice generator web app using the provided files (PDF, CSV/Excel reference, and branded HTML).
+
+This tool will be used by non-technical users (sales teams, operators). It must feel extremely simple, clean, and impossible to mess up.
+
+---
+
+### 🎯 CORE GOAL
+
+Transform the provided HTML invoice into a smart, interactive, and visually clean invoice generator that:
+
+* Requires ZERO training to use
+* Looks premium and modern
+* Prevents user errors
+* Works smoothly on desktop and mobile
+
+---
+
+### 🧠 UX PRINCIPLES (VERY IMPORTANT)
+
+Follow these strictly:
+
+1. **Big, clear inputs**
+
+   * Large input fields
+   * Clear labels (not placeholders only)
+   * Good spacing
+   * No cramped UI
+
+2. **Minimal thinking required**
+
+   * User should not calculate anything
+   * Everything auto-updates instantly
+
+3. **Guide the user step-by-step**
+   Add section headings:
+
+   * "Client Details"
+   * "Invoice Details"
+   * "Products"
+   * "Summary"
+
+4. **Error-proof**
+
+   * Prevent empty or invalid inputs
+   * Default values where possible
+   * Show warnings (e.g. "Qty missing")
+
+5. **Instant feedback**
+
+   * Totals update live
+   * Row amount updates instantly
+
+6. **Make it feel fast**
+
+   * No lag
+   * No reloads
+
+---
+
+### 🧾 FORM STRUCTURE
+
+Organize into clean sections:
+
+#### 1. Client Details
+
+* Client Name (required)
+
+#### 2. Invoice Details
+
+* Invoice Number (auto-suggest or editable)
+* Date (default = today)
+* Order Number (optional)
+
+#### 3. Products (MOST IMPORTANT SECTION)
+
+* Each row should have:
+
+  * Product Name
+  * Composition
+  * Form
+  * Packing
+  * Qty
+  * Rate
+  * Amount (auto-calculated, read-only)
+
+* Features:
+
+  * "Add Product" button
+  * "Remove Row" button
+  * Minimum 1 row always present
+
+---
+
+### 💰 CALCULATION LOGIC (STRICT)
+
+Follow EXACTLY:
+
+* amount = qty × rate
+
+* productSubtotal = sum of all amounts
+
+* cylinderCharges = 1500
+
+* inventoryCharges = 3000
+
+* gstProducts = 5% of productSubtotal
+
+* gstInventory = 18% of inventoryCharges ONLY
+
+DO NOT:
+
+* apply 18% GST to products
+
+* apply GST to cylinder charges
+
+* grandTotal = productSubtotal + cylinderCharges + inventoryCharges + gstProducts + gstInventory
+
+* advance = 30% of grandTotal
+
+All values must:
+
+* auto-update instantly
+* never show NaN
+* always show 2 decimal places
+
+---
+
+### 📊 SUMMARY SECTION (VISUAL PRIORITY)
+
+Make this visually clear and bold:
+
+Show:
+
+* Subtotal
+* GST (Products 5%)
+* GST (Inventory 18%)
+* Grand Total (highlighted)
+* 30% Advance (highlighted in green)
+
+Use:
+
+* Larger fonts
+* Clear alignment
+* Highlight important numbers
+
+---
+
+### 📄 DOWNLOAD FEATURES
+
+#### 1. Download PDF
+
+* Must match invoice layout
+* Use html2pdf.js or print
+* File name:
+  SAACH_Invoice_[ClientName]_[Date].pdf
+
+#### 2. Download CSV
+
+Include:
+
+* All product rows
+* Totals and GST breakdown
+
+File name:
+SAACH_Invoice_[ClientName]_[Date].csv
+
+---
+
+### 🎛️ BUTTONS (VERY IMPORTANT UX)
+
+Add clearly visible buttons:
+
+* ➕ Add Product
+* 📄 Download PDF
+* 📊 Download CSV
+
+Buttons must:
+
+* Be large
+* Be visually distinct
+* Be easy to click
+
+---
+
+### ✨ EXTRA UX IMPROVEMENTS
+
+Add these:
+
+* Autofocus first input
+* Auto-format numbers
+* Prevent negative values
+* Disable download if form is incomplete
+* Smooth scrolling if needed
+* Clean animations (subtle, fast)
+
+---
+
+### 📱 RESPONSIVENESS
+
+* Must work on mobile
+* Inputs should stack vertically
+* Buttons easy to tap
+* No horizontal scroll
+
+---
+
+### 🧩 CODE QUALITY
+
+* Clean, readable JavaScript
+* No unnecessary complexity
+* Separate:
+
+  * calculation logic
+  * DOM updates
+  * file generation
+
+---
+
+### 🚀 FINAL OUTPUT
+
+Return:
+
+* Fully working HTML file
+* All JS included
+* Ready to deploy (Netlify/Vercel)
+* No missing functionality
+
+---
+
+### ❗ FINAL RULE
+
+This should NOT feel like a form.
+
+It should feel like a **simple tool that does everything automatically**.
+
+If a user has to think, the UX is wrong.
